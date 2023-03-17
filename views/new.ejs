@@ -1,27 +1,30 @@
-<%- include('partials/head') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head.ejs') %>
+    <title>New</title>
+</head>
+<body>
+    <h1 class="title">Add new task</h1>
+    <p class="subtitle">Here you can add some new tasks.</p>
 
-  <body>
-    <%- include('partials/nav') %>
-      <div class="page-container">
-
-        <h2>Where Do You Want To Go?</h2>
-
-        <form action="/places/index" method="post" id="add-new-place">
-
-          <div class="search-input">
-            <label for="user-search-location">Search</label>
-            <input type="text" id="user-search-location">
-          </div>
-          
-          
-          <button id="search-btn" onclick="search()">Go</button>
+    <section class="section">
+        <form action="/tasks" method="POST"class="has-background-white-ter px-4 py-3 box is-mobile">
+            <div class="field create-name">
+                <label class="label" for="name">Task Name:</label>
+                <input type="text" class="input" id="name" name="name" placeholder="task name" required>
+            </div>
+            <div class="field create-description">
+                <label class="label" for="description">Task Description (optional):</label>
+                <textarea id="description" name="description" class="textarea" placeholder="Hello world"></textarea>
+            </div>
+    
+            <button class="button is-success">Add</button>
         </form>
+    </section>
 
-      </div>
-      <%- include('partials/footer') %>
-      
-      <script src="https://unpkg.com/country-state-city@1.0.6/umd/country-state-city.min.js"></script>
-      <script src="/js/locator.js"></script>
-  </body>
-
-  </html>
+</body>
+</html>

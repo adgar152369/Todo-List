@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head.ejs') %>
+        <title>Document</title>
+</head>
+
+<body>
+    <h2 class="title">
+        <%= task.name %>
+    </h2>
+
+    <section class="section">
+        <form action="/tasks/<%= task._id %>?_method=PUT" method="POST">
+            <div class="field update-name">
+                <label class="label" for="name">Task Name:</label>
+                <input type="text" class="input" id="name" name="name" placeholder="task name" value="<%= task.name %>"
+                    required>
+            </div>
+            <div class="field update-description">
+                <label class="label" for="description">Task Description:</label>
+                <textarea id="description" name="description" class="textarea" placeholder="Hello world"><%= task.description %></textarea>
+            </div>
+
+            <button class="button is-primary">Update</button>
+        </form>
+
+        <form action="/tasks/<%= task._id %>?_method=DELETE" method="POST">
+            <button class="button is-danger">Delete</button>
+        </form>
+    </section>
+
+</body>
+
+</html>

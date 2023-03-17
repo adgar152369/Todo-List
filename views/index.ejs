@@ -1,32 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('partials/head') %>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<%- include('./partials/head.ejs') %>
+		<title>My Tasks</title>
+</head>
 
-<body>
-    <%- include('partials/nav') %>
-    <div class="page-container">
-        <h2 class="destinations">Destinations</h2>
-        <% if (userPlaces.length === 0) { %>
-            <h4>You have no destinations yet!</h4>
-        <% } else { %>
-            <ul class="my-places-list">
-                <% for (let place of userPlaces) { %>
-                    <li>
-                        <a href="/places/index/<%= place.id %>" style="background-color: <%= place.color %>;">
-                            <%= place.city %>
-                            <span> - <%= place.country %></span>
-                        </a>
-                    </li>
-                <% } %>
-            </ul>
-        <% } %>
+<body class="has-background-light	pb-6">
+	<div class="container is-widescreen">
+		<div class="columns mx-3 py-6 is-variable is-6">
+			<div class="column is-two-thirds is-full-mobile pl-0">
+				<div class="is-flex is-flex-direction-row is-flex-wrap-nowrap is-justify-content-space-between">
+					<h2 class="title">Tasks</h2>
+					<a href="/" class="button is-small has-text-link">Home</a>
+				</div>
+				<ul class="px-6 task-list box">
 
-        <div class="pseudo-nav">
-            <a href="/places/new">Add a place</a>
-        </div>
-    </div>
+					<% for (let task of tasks) { %>
+						<li class="mt-4">
+							<div class="item-box">
 
+								<article class="media">
+									<div class="media-content columns is-justify-content-space-between task-list-content">
+										<div class="content column is-two-thirds">
+											<span class="is-size-4 has-text-primary task-title-name">
+												<%= task.name %>
+											</span>
+											<p class="is-size-6 has-text-grey" data-description>
+												<% if (task.description) { %>
+													- <%= task.description %>
+														<% } else { %>
+															<%= task.description %>
+																<% }%>
+
+											</p>
+											<aside class="is-size-7 has-text-grey-light time-elapsed">Created: <%=
+													task.dateCreated.toLocaleDateString() %>
+													<div title="Time elapsed since creating this task">
+														<i class="fa-regular fa-clock"></i>
+														<span>
+															<%= Math.floor(((Date.now() - task.dateCreated) / 60000) / 60) %> hours
+														</span>
+													</div>
+											</aside>
+										</div>
+
+										<section
+											class="task-controls item-flex is-flex is-flex-direction-row is-flex-wrap-wrap is-align-self-center is-justify-content-flex-end buttons are-small">
+											<form action="/tasks/<%= task._id %>?_method=DELETE" method="POST">
+												<button class="button is-primary is-inverted icon"><i
+														class="fa-regular fa-circle-check fa-xl"></i></button>
+											</form>
+											<% if (task.isSaved == true) { %>
+											 <button disabled class="save-task-btn button is-link is-inverted mr-0">Save</button>
+											<% } else { %>
+												<button class="save-task-btn button is-link is-inverted mr-0" data-saved-task-id="<%= task._id %>">Save</button>
+											<%}%>
+											<a href="/tasks/<%= task._id %>" class="button is-link is-inverted icon">
+												<span class="icon">
+													<i class="fa-solid fa-pen"></i>
+												</span></a>
+										</section>
+
+									</div>
+								</article>
+							</div>
+						</li>
+						<% } %>
+
+				</ul>
+
+				<div class="nav-links">
+					<a href="/tasks/new" class="button is-dark">Add a task</a>
+
+				</div>
+			</div>
+			<div class="column box has-background-info my-notes">
+				<h2 class="title has-text-info-dark">Notes</h2>
+			</div>
+
+		</div>
+		<div class="columns level">
+			<section class="column is-half has-background-warning-light box mx-3 px-4 py-2 saved-tasks">
+				<%- include('./partials/saved.ejs') %>
+			</section>
+		</div>
+	</div>
+
+
+	<script src="js/saved.js"></script>
 </body>
 
 </html>

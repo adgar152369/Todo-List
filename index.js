@@ -1,106 +1,90 @@
 const express = require('express');
-const app = express();
+const mongoose = require('mongoose');
 const path = require('path');
-const methodOverride = require('method-override');
-const { v4: uuid } = require('uuid');
-const { countryNames, stateNames, cityNames } = require('./js/country-state-city');
+const app = express();
+const bodyParser = require("body-parser");
+const methodOverride = require('method-override')
+const Task = require('./models/Task');
+const SavedTask = require('./models/SavedTask');
+
+// Connect to Mongo Database
+async function dbConnect() {
+    await mongoose.connect('mongodb://127.0.0.1:27017/todo');
+    console.log('connected to mongodb!')
+}
+dbConnect().catch(err => console.log(err));
 
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 app.set('views', path.join(__dirname, 'views'));
 app.use('/public', express.static('public'));
 app.use('/js', express.static('js'));
 app.set('view engine', 'ejs');
-app.use(methodOverride('_method'));
 
-const user = {
-    name: "Adam",
-    age: 26,
-    occupation: "Web Developer",
-    reasonForTravel: "n",
-    places: [
-        
-    ]
-}
+// Routes
 
-const featured = {
-    featuredPlaces: [
-        {
-            country: "France",
-            city: "Paris",
-            description: 'City of lights and love.',
-            id: 1
-        },
-        {
-            country: "United States",
-            city: "New York City",
-            description: 'The city that never sleeps.',
-            id: 2
-        },
-        {
-            country: "Iceland",
-            city: "Vik",
-            description: 'Black sand beach beauty.',
-            id: 3
-        }
-    ]
-}
-
-let userPlaces = user.places;
-let featuredPlaces = featured.featuredPlaces;
-
+// get
 app.get('/', (req, res) => {
-    res.render('home', { user, userPlaces, featuredPlaces });
+    res.render('home')
 });
 
-app.get('/places/index', (req, res) => {
-    res.render('index', { userPlaces });
+app.get('/tasks', async (req, res) => {
+    const tasks = await Task.find({});
+    const savedTasks = await SavedTask.find({});
+    tasks.forEach(task => console.log(task.isSaved));
+    res.render('index', { tasks, savedTasks });
+});
+
+app.get('/tasks/new', (req, res) => {
+    res.render('new');
+});
+
+app.get('/tasks/:id', async (req, res) => {
+    const { id } = req.params;
+    const task = await Task.findById(id);
+    res.render('show', { task });
+});
+
+// post
+app.post('/tasks', async (req, res) => {
+    const newTask = new Task(req.body);
+    try {
+        await newTask.save();
+        res.redirect('/tasks');
+    } catch (error) {
+        console.log(error)
+    }
+});
+
+app.put('/tasks/:id', async (req, res) => {
+    const { id } = req.params;
+    const updatedTask = await Task.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
+    res.redirect('/tasks');
+});
+
+// create saved task
+app.get('/task/:id', async (req, res) => {
+    const { id } = req.params;
+    const task = await Task.findById(id);
+    const newSavedTask = new SavedTask({
+        name: task.name,
+        description: task.description
+    });
+    newSavedTask.save();
+    res.json(newSavedTask);
+    task.isSaved = true;
+    console.log(task)
+});
+
+
+// delete
+app.delete('/tasks/:id', async (req, res) => {
+    const { id } = req.params;
+    const deletedTask = await Task.findByIdAndDelete(id);
+    res.redirect('/tasks');
 })
-
-app.get('/places/new', (req, res) => {
-    res.render('new', { countryNames });
-});
-
-app.get('/places/:id', (req, res) => {
-    const { id } = req.params;
-    const featuredPlace = featuredPlaces.find(f => f.id === parseInt(id));
-    res.render('place', { featuredPlace });
-});
-
-app.get('/places/index/:id', (req, res) => {
-    const { id } = req.params;
-    const userPlace = userPlaces.find(p => p.id === parseInt(id));
-    console.log(userPlaces)
-    res.render('my-place', { userPlace })
-});
-
-// app.get('/places/my-places/:id', (req, res) => {
-//     const { id } = req.params;
-//     const placeId = userPlaces.find(p => p.id === parseInt(id));
-//     res.render('my-places', { placeId, userPlaces })
-// }) 
-
-app.post('/places/index', (req, res) => {
-    const { country, state, city, color } = req.body;
-    userPlaces.push({ country, state, city, color, id: Math.floor(Math.random() * 100) })
-    res.redirect('/places/index');
-});
-
-app.delete('/places/:id', (req, res) => {
-    const { id } = req.params;
-    userPlaces = userPlaces.filter(p => p.id !== id);
-    res.redirect('/places');
-})
-
-
-
-
 
 app.listen(3000, () => {
-    console.log('listening on port 3000!');
+    console.log('listening on port 3000!')
 })
-
-
-
-

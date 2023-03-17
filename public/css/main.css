@@ -1,0 +1,56 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+@import "./index.css";
+
+.task-list li:not(:last-child) {
+  border-bottom: dotted 1px lightgrey;
+}
+.task-list .item-box {
+  position: relative;
+}
+
+.time-elapsed {
+  max-width: 25%;
+}
+
+.my-notes {
+  max-height: 650px;
+  overflow-y: scroll;
+}
+
+.item-flex {
+  flex-grow: inherit;
+}
+
+.button.is-success.is-inverted {
+  background-color: transparent;
+  align-self: center;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+}
+
+h2.title {
+  font-size: 2rem;
+}
+
+section.section {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+form {
+  border-radius: 5px;
+}
+
+div.column,
+section {
+  border-radius: 5px;
+}

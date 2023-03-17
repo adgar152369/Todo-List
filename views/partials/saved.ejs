@@ -1,0 +1,24 @@
+<h2 class="title m-2 has-text-warning">Saved</h2>
+
+<% if (savedTasks.length===0) { %>
+    <h4>No saved tasks yet!</h4>
+    <% } else { %>
+        <ul class="saved-tasks-list px-6 py-5">
+            <% for( let savedTask of savedTasks) { %>
+                <li class="insert-saved-task mb-3">
+                    <form action="/tasks" method="POST" class="">
+                        <input type="hidden" id="name" name="name" value="<%= savedTask.name %>">
+                        <input type="hidden" id="description" name="description" value="<%= savedTask.description %>"></input>
+
+                        <div class="saved-task-controls is-flex is-align-self-center">
+                            <button class="button is-success is-inverted icon"><i class="fa-regular fa-square-plus fa-xl"></i></button>
+                            <p class="is-size-5 is-inline-block has-text-warning-dark ml-2 has-text-weight-semibold">
+                                <%= savedTask.name %>
+                            </p>
+                        </div>
+                    </form>
+                </li>
+                <% } %>
+
+        </ul>
+        <% } %>
