@@ -1,0 +1,9 @@
+#about p {
+  /* color: #fff; */
+  line-height: 2.5rem;
+  margin-top: 0;
+  font-size: 1.25rem;
+  font-weight: 200;
+  font-family: 'Manrope', sans-serif;
+  text-align: center;
+}

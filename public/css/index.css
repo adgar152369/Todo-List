@@ -1,0 +1,27 @@
+.my-places-list {
+    list-style-type: none;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+}
+
+.my-places-list span {
+    font-size: 1.25rem;
+}
+
+.my-places-list a {
+    color: #f5f5f5;
+    /* font-family: 'Yantramanav', sans-serif; */
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 25px 15px;
+    width: -webkit-fill-available;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+h2.destinations {
+    /* margin-bottom: 50px; */
+}

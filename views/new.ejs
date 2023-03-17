@@ -1,0 +1,27 @@
+<%- include('partials/head') %>
+
+  <body>
+    <%- include('partials/nav') %>
+      <div class="page-container">
+
+        <h2>Where Do You Want To Go?</h2>
+
+        <form action="/places/index" method="post" id="add-new-place">
+
+          <div class="search-input">
+            <label for="user-search-location">Search</label>
+            <input type="text" id="user-search-location">
+          </div>
+          
+          
+          <button id="search-btn" onclick="search()">Go</button>
+        </form>
+
+      </div>
+      <%- include('partials/footer') %>
+      
+      <script src="https://unpkg.com/country-state-city@1.0.6/umd/country-state-city.min.js"></script>
+      <script src="/js/locator.js"></script>
+  </body>
+
+  </html>

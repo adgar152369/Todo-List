@@ -1,0 +1,59 @@
+@import './footer.css';
+@import './index.css';
+@import './place.css';
+@import './forms.css';
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Manrope', sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    /* background-color: #F8F4FF; */
+}
+
+body.unfocus {
+    overflow: hidden;
+}
+
+/* .dark-bg {
+    background-color: #242124;
+} */
+
+.page-container {
+    padding-top: 120px;
+    padding-inline: 10px;
+    min-height: 100vh;
+    background-color: #F8F4FF;
+}
+
+h1, h2, h3, h4,
+p, a, li {
+    color: #242124;
+}
+
+h2 {
+    font-size: 2.5rem;
+    color: #D6CADD;
+    /* font-family: 'EB Garamond', serif; */
+}
+
+p {
+    font-size: 18px;
+}
+
+ul li a {
+    font-size: 1.5rem;
+}
+
+.pseudo-nav a{
+    /* background-color: #B57EDC; */
+    padding: 5px 10px;
+    border-radius: 2px;
+    border: solid 1px #B57EDC;
+    text-decoration: none;
+    color: #B57EDC;
+}
