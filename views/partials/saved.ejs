@@ -9,6 +9,7 @@
 					<form action="/tasks" method="POST" class="">
 						<input type="hidden" id="name" name="name" value="<%= savedTask.name %>">
 						<input type="hidden" id="description" name="description" value="<%= savedTask.description %>"></input>
+						<input type="hidden" id="isSaved" name="isSaved" value="<%= savedTask.isSaved %>">
 
 						<div class="saved-task-controls is-flex is-align-self-center">
 							<button class="button is-success is-inverted icon"><i

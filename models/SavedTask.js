@@ -5,7 +5,11 @@ const savedTaskSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    description: String
+    description: String,
+    isSaved: {
+        type: Boolean,
+        default: true
+    }
 });
 
 const SavedTask = mongoose.model("SavedTask", savedTaskSchema);

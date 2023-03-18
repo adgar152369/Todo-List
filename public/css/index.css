@@ -26,4 +26,8 @@
 .button.is-primary.is-inverted {
   background-color: transparent;
   align-self: center;
-}/*# sourceMappingURL=index.css.map */
+}
+
+h2.title {
+  mix-blend-mode: multiply;
+}

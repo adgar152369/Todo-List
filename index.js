@@ -49,6 +49,7 @@ app.get('/tasks/:id', async (req, res) => {
 app.post('/tasks', async (req, res) => {
     const newTask = new Task(req.body);
     console.log(newTask)
+    
     try {
         await newTask.save();
         res.redirect('/tasks');
