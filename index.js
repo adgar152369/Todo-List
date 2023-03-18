@@ -32,7 +32,6 @@ app.get('/', (req, res) => {
 app.get('/tasks', async (req, res) => {
     const tasks = await Task.find({});
     const savedTasks = await SavedTask.find({});
-    tasks.forEach(task => console.log(task.isSaved));
     res.render('index', { tasks, savedTasks });
 });
 
@@ -49,6 +48,7 @@ app.get('/tasks/:id', async (req, res) => {
 // post
 app.post('/tasks', async (req, res) => {
     const newTask = new Task(req.body);
+    console.log(newTask)
     try {
         await newTask.save();
         res.redirect('/tasks');
@@ -66,15 +66,15 @@ app.put('/tasks/:id', async (req, res) => {
 // create saved task
 app.get('/task/:id', async (req, res) => {
     const { id } = req.params;
-    const task = await Task.findById(id);
+    // const task = await Task.findById(id);
+    const task = await Task.findOneAndUpdate({ _id: id}, {isSaved: true}, {new: true});
     const newSavedTask = new SavedTask({
         name: task.name,
         description: task.description
     });
+
     newSavedTask.save();
     res.json(newSavedTask);
-    task.isSaved = true;
-    console.log(task)
 });
 
 

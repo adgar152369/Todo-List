@@ -8,16 +8,15 @@ const insertSavedTask = $('.insert-saved-task');
 
 savedTaskBtn.forEach((task, i) => {
     task.addEventListener('click', async () => {
+        task.setAttribute('disabled', true)
 
         const taskId = task.dataset.savedTaskId;
-        // console.log(taskId);
         const response = await fetch(`/task/${taskId}`);
         const data = await response.json();
-
-        console.log(data);
 
         let li = document.createElement('li');
         li.innerHTML += `<span>${data.name}</span>`;
         savedTasksList.appendChild(li)
-    })
+    });
 });
+

@@ -54,8 +54,8 @@
 												<button class="button is-primary is-inverted icon"><i
 														class="fa-regular fa-circle-check fa-xl"></i></button>
 											</form>
-											<% if (task.isSaved == true) { %>
-											 <button disabled class="save-task-btn button is-link is-inverted mr-0">Save</button>
+											<% if (task.isSaved) { %>
+											 <button disabled class="save-task-btn button is-link is-inverted mr-0">Saved!</button>
 											<% } else { %>
 												<button class="save-task-btn button is-link is-inverted mr-0" data-saved-task-id="<%= task._id %>">Save</button>
 											<%}%>
