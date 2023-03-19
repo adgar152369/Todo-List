@@ -6,17 +6,16 @@ const bodyParser = require("body-parser");
 const methodOverride = require('method-override')
 const Task = require('./models/Task');
 const SavedTask = require('./models/SavedTask');
-// const config = require('./config.js');
-// require('dotenv').config();
+const config = require('./config.js');
+require('dotenv').config();
 
 
 const PORT = process.env.PORT || 3000;
-const db_url = `mongodb+srv://${process.env.db_user}:${process.env.db_pass}@cluster0.rne70m5.mongodb.net/todo`
 
 
 // Connect to Mongo Database
 async function dbConnect() {
-    await mongoose.connect(db_url, { useNewUrlParser: true });
+    await mongoose.connect(config.mongoURI, { useNewUrlParser: true });
     console.log('connected to mongodb!')
 }
 dbConnect().catch(err => console.log(err));
