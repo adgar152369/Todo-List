@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const methodOverride = require('method-override')
 const Task = require('./models/Task');
 const SavedTask = require('./models/SavedTask');
-const config = require('./config');
+const config = require('./config.js');
 require('dotenv').config();
 
 
