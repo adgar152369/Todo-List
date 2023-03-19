@@ -1,15 +1,15 @@
 <h2 class="title m-2 has-text-warning">Saved</h2>
 
-<% if (savedTasks.length===0) { %>
-	<h4>No saved tasks yet!</h4>
-	<% } else { %>
-		<ul class="saved-tasks-list px-6 py-5">
+<ul class="saved-tasks-list px-6 py-5">
+	<% if (savedTasks.length===0) { %>
+		<h4>No saved tasks yet!</h4>
+		<% } else { %>
 			<% for( let savedTask of savedTasks) { %>
 				<li class="insert-saved-task mb-3">
 					<form action="/tasks" method="POST" class="">
 						<input type="hidden" id="name" name="name" value="<%= savedTask.name %>">
 						<input type="hidden" id="description" name="description" value="<%= savedTask.description %>"></input>
-						<input type="hidden" id="isSaved" name="isSaved" value="<%= savedTask.isSaved %>">
+						<!-- <input type="hidden" id="isSaved" name="isSaved" value="<%= savedTask.isSaved %>"> -->
 
 						<div class="saved-task-controls is-flex is-align-self-center">
 							<button class="button is-success is-inverted icon"><i
@@ -19,8 +19,12 @@
 							</p>
 						</div>
 					</form>
+					<button class="button is-primary is-inverted icon delete-saved-task"><i
+							class="fa-regular fa-square-minus has-text-danger"></i></button>
+					<!-- <form action="/tasks/<%= savedTask._id %>?_method=DELETE" method="POST">
+					</form> -->
 				</li>
 				<% } %>
 
-		</ul>
-		<% } %>
+</ul>
+<% } %>

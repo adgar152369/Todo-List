@@ -31,3 +31,7 @@
 h2.title {
   mix-blend-mode: multiply;
 }
+
+.saved-tasks form {
+  display: inline-block;
+}
