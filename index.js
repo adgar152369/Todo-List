@@ -6,10 +6,12 @@ const bodyParser = require("body-parser");
 const methodOverride = require('method-override')
 const Task = require('./models/Task');
 const SavedTask = require('./models/SavedTask');
+const config = require('./config');
+
 
 // Connect to Mongo Database
 async function dbConnect() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/todo');
+    await mongoose.connect(config.mongoURI, { useNewUrlParser: true });
     console.log('connected to mongodb!')
 }
 dbConnect().catch(err => console.log(err));
