@@ -7,6 +7,10 @@ const methodOverride = require('method-override')
 const Task = require('./models/Task');
 const SavedTask = require('./models/SavedTask');
 const config = require('./config');
+require('dotenv').config();
+
+
+const PORT = process.env.PORT || 3000;
 
 
 // Connect to Mongo Database
@@ -98,6 +102,6 @@ app.delete('/tasks/:id', async (req, res) => {
     res.redirect('/tasks');
 })
 
-app.listen(3000, () => {
-    console.log('listening on port 3000!')
+app.listen(PORT, () => {
+    console.log(`listening on port ${PORT}`)
 })
