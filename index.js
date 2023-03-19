@@ -48,8 +48,8 @@ app.get('/tasks/:id', async (req, res) => {
 // post
 app.post('/tasks', async (req, res) => {
     const newTask = new Task(req.body);
-    console.log(newTask)
-    
+    // console.log(newTask)
+
     try {
         await newTask.save();
         res.redirect('/tasks');
@@ -63,6 +63,13 @@ app.put('/tasks/:id', async (req, res) => {
     const updatedTask = await Task.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
     res.redirect('/tasks');
 });
+
+// app.patch('/tasks/:id', async (req, res) => {
+//     const { id } = req.params;
+//     const updatedTask = await Task.findOneAndUpdate({_id: id}, {isSaved: false});
+//     console.log(updatedTask)
+//     res.redirect('/tasks');
+// })
 
 // create saved task
 app.get('/task/:id', async (req, res) => {
@@ -82,7 +89,10 @@ app.get('/task/:id', async (req, res) => {
 // delete
 app.delete('/tasks/:id', async (req, res) => {
     const { id } = req.params;
-    const deletedTask = await Task.findByIdAndDelete(id);
+    const task = await Task.findOneAndUpdate({ _id: id}, {isSaved: true}, {new: true});
+    // const deletedTask = await Task.findByIdAndDelete(id);
+    const deletedSavedTask = await SavedTask.findByIdAndDelete(id);
+    console.log(task)
     res.redirect('/tasks');
 })
 
